@@ -14,4 +14,4 @@ subject_id_prefix_pattern <- paste(c("H","NH"), collapse = '|')
 subjects_of_interest_indices <- grep(subject_id_prefix_pattern,all_data_frame$record_id)
 
 this_pattern_did_not_work <- all_data_frame$record_id[subjects_of_interest_indices]
-
+xkjhfkjfk
