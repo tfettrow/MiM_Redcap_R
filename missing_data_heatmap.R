@@ -10,8 +10,16 @@ url <- "https://redcap.ctsi.ufl.edu/redcap/api/"
 all_data_frame <- redcap_read(redcap_uri = url, token = token)$data
 all_data_frame$fmri_zero_short_dprime
 
-subject_id_prefix_pattern <- paste(c("H","NH"), collapse = '|')
+subject_id_prefix_pattern <- paste(c("H1","H2","H3","NH"), collapse = '|')
 subjects_of_interest_indices <- grep(subject_id_prefix_pattern,all_data_frame$record_id)
 
-this_pattern_did_not_work <- all_data_frame$record_id[subjects_of_interest_indices]
-xkjhfkjfk
+#this_pattern_did_not_work <- all_data_frame$record_id[subjects_of_interest_indices]
+sppb_data_frame=data.frame(all_data_frame$record_id[subjects_of_interest_indices], all_data_frame$fmri_zero_short_dprime[subjects_of_interest_indices])
+#this did not work as it creates data frame for all variables to be true and false
+sppb_data_frame_2= data.frame(is.na(sppb_data_frame$all_data_frame.fmri_zero_short_dprime.subjects_of_interest_indices))
+#only creates data frame for the variable of interest 
+is.na(sppb_data_frame$all_data_frame.fmri_zero_short_dprime.subjects_of_interest_indices.)
+#save this for later
+sppb_data_frame_filter[data.frame(all_data_frame$record_id[subjects_of_interest_indices], all_data_frame$fmri_zero_short_dprime[subjects_of_interest_indices]) %in% c("NA")]
+ 
+
