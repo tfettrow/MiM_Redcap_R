@@ -18,11 +18,6 @@ session_of_interest_indices <- which(all_data_frame$redcap_event_name=="base_v4_
 
 for (this_variable in variables_of_interest)
   {
-    # this_variable_of_interest_indices <- which(!is.na(eval(parse(text =paste0('all_data_frame$',this_variable)))))
-    # this_subject_variable_overlap_indices <- intersect(intersect(subjects_of_interest_indices,this_variable_of_interest_indices),session_of_interest_indices)
-    # this_variable_dataframe <- data.frame(all_data_frame$record_id[this_subject_variable_overlap_indices],eval(parse(text =paste0('all_data_frame$',this_variable)))[this_subject_variable_overlap_indices])
-
-    # this_variable_of_interest_binary_array <- as.integer(!is.na(eval(parse(text =paste0('all_data_frame$',this_variable)))))
     this_variable_of_interest_binary_array <- eval(parse(text =paste0('all_data_frame$',this_variable)))
     this_variable_of_interest_binary_array[is.na(this_variable_of_interest_binary_array)] <- 0
     this_subject_session_overlap_indices <- intersect(subjects_of_interest_indices,session_of_interest_indices)
@@ -32,11 +27,15 @@ for (this_variable in variables_of_interest)
 
     this_variable_of_interest_filtered_data_frame <- data.frame(record_id_number_only[this_subject_session_overlap_indices], this_variable_of_interest_binary_array[this_subject_session_overlap_indices])
 
-
     colnames(this_variable_of_interest_filtered_data_frame) <- c("record_id",this_variable)
+    record_id="record_id"
 
-    ggplot(this_variable_of_interest_filtered_data_frame, aes(mri_checklist_complete,record_id)) +
+    ggplot(this_variable_of_interest_filtered_data_frame, aes_string(this_variable,record_id)) +
       geom_tile()
+
+    heatmap_file_name_tiff = paste0("heatmap_",toString(this_variable),".tiff")
+    file = file.path("\\\\exasmb.rc.ufl.edu/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures",heatmap_file_name_tiff)
+    ggsave(file)
   }
 
 
