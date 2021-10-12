@@ -1,10 +1,11 @@
 library(REDCapR)
 library(ggplot2)
 
-token <- "6E6CDFE57EF460564AE0F180BCCE734B"  # TF token
+token <- "2306C4C09DE54073D5040ECAB415861A"  # AT token
 url <- "https://redcap.ctsi.ufl.edu/redcap/api/"
 all_data_frame <- redcap_read(redcap_uri = url, token = token)$data
 
+#token <- 6E6CDFE57EF460564AE0F180BCCE734B"  # TF token
 #token <- "2306C4C09DE54073D5040ECAB415861A"  # AT token
 variables_of_interest <- c("mri_checklist_complete","white_matter_integrity_complete", "grey_matter_volume_complete","mri_fmri_brain_imagined_treadmill_complete","mri_fmri_brain_n_back_complete","conn_complete","imagined_treadmill_walking_test_fmri_complete","mri_nback_performance_complete")
 # variables_of_interest <- c("zero_short_dprime")
@@ -34,8 +35,10 @@ for (this_variable in variables_of_interest)
       geom_tile()
 
     heatmap_file_name_tiff = paste0("heatmap_",toString(this_variable),".tiff")
-    file = file.path("\\\\exasmb.rc.ufl.edu/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures",heatmap_file_name_tiff)
+    file = file.path("/Volumes/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures",heatmap_file_name_tiff)
     ggsave(file)
   }
 
+#"\\\\exasmb.rc.ufl.edu/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures" <- Windows file path 
+# "/Volumes/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures" <-Macbook file path
 
