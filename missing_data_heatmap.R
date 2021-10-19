@@ -35,8 +35,8 @@ for (this_variable in variables_of_interest)
     ggplot(this_variable_of_interest_filtered_data_frame, aes_string(this_variable,record_id)) +
       geom_tile() +
       theme(
-        axis.text.y = element_text(size=11, hjust=5),
-        panel.background = element_rect(fill="black", color= "yellow")
+        axis.text.y = element_text(size=8.75, hjust=-1.5, margin = margin(1,1,1,1,"pt")),
+        panel.background = element_rect(fill="white", color= "grey")
         )
        #this does not work at all 
        #scale_fill_manual(values= this_variable, aesthetic="fill")
