@@ -30,10 +30,17 @@ for (this_variable in variables_of_interest)
 
     colnames(this_variable_of_interest_filtered_data_frame) <- c("record_id",this_variable)
     record_id="record_id"
+    
 
     ggplot(this_variable_of_interest_filtered_data_frame, aes_string(this_variable,record_id)) +
-      geom_tile()
-
+      geom_tile() +
+      theme(
+        axis.text.y = element_text(size=11, hjust=5),
+        panel.background = element_rect(fill="black", color= "yellow")
+        )
+       #this does not work at all 
+       #scale_fill_manual(values= this_variable, aesthetic="fill")
+      
     heatmap_file_name_tiff = paste0("heatmap_",toString(this_variable),".tiff")
     file = file.path("/Volumes/blue/rachaelseidler/share/FromExternal/Research_Projects_UF/CRUNCH/MiM_Data/redcap_figures",heatmap_file_name_tiff)
     ggsave(file)
