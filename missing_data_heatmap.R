@@ -15,13 +15,16 @@ subject_id_prefix_pattern <- paste(c("H1", "H2", "H3","NH1","NH2","NH3"), collap
 bv4_indices <- which(all_data_frame$redcap_event_name=="base_v4_mri_arm_1")
 H_and_NH_indices <- grep(subject_id_prefix_pattern,all_data_frame$record_id)
 
-# some stuff to filter data frame to exclude withdraws
+# some stuff to filter data frame to exclude withdraws and people that are ineligible for different reasons
 unique_subject_ids = unique(all_data_frame$record_id[H_and_NH_indices])
 record_id_number_only <- gsub("[^0-9.-]", "", all_data_frame$record_id)
 screening_arm_indices <- which(all_data_frame$redcap_event_name=="final_determinatio_arm_1")
-patients_that_DIDNOT_withdraw_indices <- intersect(which(all_data_frame$pt_withdraw_fd==0 | is.na(all_data_frame$pt_withdraw_fd)), screening_arm_indices)
+patients_that_DIDNOT_withdraw_indices <- intersect(which(all_data_frame$pt_withdraw_fd==0 & all_data_frame$elig_bl_fd==1 & all_data_frame$elig_sv_fd==1), screening_arm_indices)
 subject_ids_of_interest <- intersect(unique_subject_ids,all_data_frame$record_id[patients_that_DIDNOT_withdraw_indices])
 subjects_of_interest_indices <- which(!is.na(match(all_data_frame$record_id, subject_ids_of_interest)))
+
+
+data.frame(all_data_frame$record_id, all_data_frame$redcap_event_name, all_data_frame$elig_bl_fd)
 
 # final data indices
 this_subject_bv4_overlap_indices <- intersect(subjects_of_interest_indices,bv4_indices)
