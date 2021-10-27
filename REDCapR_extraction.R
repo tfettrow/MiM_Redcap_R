@@ -6,8 +6,9 @@
 #   example: token<-'your token'
 #   example: variable_name<-'sppb_12', you can find this name in 'Mind in Motion _ REDCap.pdf'
 #           moca is 'moca_total',400m walk time is 'time_to_walk_400_meters_re'
-#(3)please uncomment corresponding path
-#(4)run the script: enter source("REDCapR_extraction.R") in console
+#(3)change the session of interest in line17(manually check the data frame)
+#(4)please uncomment corresponding path
+
 
 ###extract the data###
 library(REDCapR)
