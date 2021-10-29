@@ -2,19 +2,25 @@
 #Steps(local RStudio recommanded):
 #(0)make sure REDCap package is installed
 #(1)set up vpn and connect to HiPerGator
-#(2)enter your token and the name of variable that you want to extract in the console
+#(2)set your token,the name of target variable and it's correspoding session name that you want to extract in the console
 #   example: token<-'your token'
-#   example: variable_name<-'sppb_12', you can find this name in 'Mind in Motion _ REDCap.pdf'
-#           moca is 'moca_total',400m walk time is 'time_to_walk_400_meters_re'
-#(3)change the session of interest in line17(manually check the data frame)
-#(4)please uncomment corresponding path
+#   example: change variable in line 21 and 22 
+#"screening_visit_arm_1" for sppb_12
+#base_clinical_asse_arm_1 for moca_total
+#base_clinical_asse_arm_1 for time_to_walk_400_meters_re
+#base_v4_mri_arm_1 for fmri_zero_short_dprime(and other nback dprime)
+#(3)please uncomment corresponding path
+#(4)run the script: enter source("REDCapR_extraction.R") in console
 
-
-###extract the data###
+###fetch the data###
 library(REDCapR)
 url <- "https://redcap.ctsi.ufl.edu/redcap/api/"
 all_data <- redcap_read(redcap_uri = url, token = token)$data
-session_of_interest_indices <- which(all_data$redcap_event_name=="base_clinical_asse_arm_1")
+
+#filter out unwanted session
+session_of_interest_indices <- which(all_data$redcap_event_name=="base_v4_mri_arm_1")
+variable_name<-"sppb_12"
+
 all_data<- all_data[session_of_interest_indices, ]
 n<-paste("target_data<-data.frame(all_data$record_id, all_data$", variable_name, ")", sep = "")
 eval(parse(text=n))
