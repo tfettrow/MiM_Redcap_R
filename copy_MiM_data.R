@@ -8,4 +8,10 @@ for (this_subject in list_of_subjects)
   dir.create(file.path(this_subject,"Raw"))
   file.copy(file.path(current_folder,this_subject,"Raw"), file.path(new_folder,this_subject,"Raw"), recursive= TRUE)
 }
-
+#Warning messages (these errors pull up everytime while running)
+# 1: In dir.create(file.path(this_subject, "Raw")) :
+#cannot create dir '1002/Raw', reason 'No such file or directory'
+#2: In file.copy(file.path(current_folder, this_subject, "Raw"), file.path(new_folder,  :
+#'recursive' will be ignored as 'to' is not a single existing directory
+#'# 3: In file.create(to[okay]) : cannot create file '/Volumes/GoogleDrive/Shared drives/MiM_Backup/1002/Raw', reason 'No such file or directory'
+                                                                          
